@@ -59,8 +59,8 @@ public class MenuScript : MonoBehaviour
                 break;
             case "main":
                 Constants.currentMenuState = Constants.MenuState.Main;
-                formsPanel.SetActive(true);
-                menuPanel.SetActive(false);
+                formsPanel.SetActive(false);
+                menuPanel.SetActive(true);
                 break;
             default:
                 Constants.currentMenuState = Constants.MenuState.None;

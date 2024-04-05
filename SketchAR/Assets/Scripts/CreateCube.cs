@@ -104,7 +104,7 @@ public class CreateCube : MonoBehaviour
             newSphere.transform.localScale = new Vector3(radius, radius, radius);
 
             newSphereBig.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
-            newSphereBig.transform.localScale = new Vector3(radius * Constants.scaleBig, radius * Constants.scaleBig, radius * Constants.scaleBig);
+            newSphereBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
 
             timer = timerDelay;
         }

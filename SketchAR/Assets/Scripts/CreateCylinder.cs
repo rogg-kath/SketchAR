@@ -117,7 +117,7 @@ public class CreateCylinder : MonoBehaviour
             {
                 var newDistance = height - newCylinder.transform.localScale.y;
                 newCylinder.transform.position = newCylinder.transform.position + new Vector3(0, newDistance * Constants.scaleSmall * 0.5f, 0);
-                newCylinderBig.transform.position = newCylinderBig.transform.position + new Vector3(0, newDistance * Constants.scaleBig * 0.5f, 0);
+                newCylinderBig.transform.position = newCylinderBig.transform.position + new Vector3(0, newDistance * Constants.actualScaleBig() * 0.5f, 0);
             }
 
             newCylinder.GetComponent<CapsuleCollider>().radius = radius;
@@ -129,9 +129,9 @@ public class CreateCylinder : MonoBehaviour
             // Debug.Log("Point1: " + point1.ToString() + "/nPoint2:  " + point2.ToString() + "/nPoint3:  " + point3.ToString());
 
 
-            newCylinderBig.GetComponent<CapsuleCollider>().radius = radius * Constants.scaleBig;
-            newCylinderBig.GetComponent<CapsuleCollider>().height = height * Constants.scaleBig;
-            newCylinderBig.transform.localScale = new Vector3(radius * Constants.scaleBig, height * Constants.scaleBig, radius * Constants.scaleBig);
+            newCylinderBig.GetComponent<CapsuleCollider>().radius = radius * Constants.actualScaleBig();
+            newCylinderBig.GetComponent<CapsuleCollider>().height = height * Constants.actualScaleBig();
+            newCylinderBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(), height * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
 
             timer = timerDelay;
         }

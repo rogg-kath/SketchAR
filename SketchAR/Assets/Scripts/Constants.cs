@@ -58,14 +58,15 @@ public class Constants : MonoBehaviour
         scaleBig = newScale;
     }
 
-    static public float actualScaleSmall()
+    // Don't need this method as small model is only one that can be modified (nur Verhältnis zum großen Model ist für dieses revevant)
+    /*static public float actualScaleSmall()
     {
         if (scaleBig == 0f)
         {
             return scaleSmall;
         }
         return scaleSmall / scaleBig;
-    }
+    }*/
 
     static public float actualScaleBig() {
         if (scaleSmall == 0f) {

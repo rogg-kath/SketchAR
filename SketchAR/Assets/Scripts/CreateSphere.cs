@@ -105,8 +105,9 @@ public class CreateSphere : MonoBehaviour
             newSphere.GetComponent<SphereCollider>().radius = radius;
             newSphere.transform.localScale = new Vector3(radius,radius,radius);
 
-            newSphereBig.GetComponent<SphereCollider>().radius = radius * Constants.scaleBig;
-            newSphereBig.transform.localScale = new Vector3(radius * Constants.scaleBig,radius * Constants.scaleBig,radius * Constants.scaleBig);
+            newSphereBig.GetComponent<SphereCollider>().radius = radius * Constants.actualScaleBig();
+            Debug.Log("ScaleBig___ " + Constants.scaleBig + " ActualBig___ " + Constants.actualScaleBig());
+            newSphereBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(),radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
 
             timer = timerDelay;
         }
