@@ -48,16 +48,16 @@ public class CreateCylinder : MonoBehaviour
                     {
                         // initial click for new object creation
                         SetupRenderer();
-                        point1 = GetPosition(smallModel.transform.position, Constants.scaleSmall);
+                        point1 = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
                     }
                     else
                     {
-                        point2 = GetPosition(smallModel.transform.position, Constants.scaleSmall);
+                        point2 = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
                     }
                 }
                 else if (point3 == Vector3.zero)
                 {
-                    point3 = GetPosition(smallModel.transform.position, Constants.scaleSmall);
+                    point3 = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
 
                     // TODO placeObject() + reset points
                     Constants.isDrawing = false;
@@ -77,12 +77,6 @@ public class CreateCylinder : MonoBehaviour
         }   
     }
 
-    Vector3 GetPosition(Vector3 center, float scale)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        return center + ray.direction * scale;
-    }
-
     float GetDistance(Vector3 center, Vector3 endpioint)
     {
         // Debug.Log("Distance of: " + center + " and " + endpioint + " = " + Vector3.Distance(center, endpioint));
@@ -96,8 +90,8 @@ public class CreateCylinder : MonoBehaviour
 
     void SetupRenderer()
     {
-        centerSmall = GetPosition(smallModel.transform.position, Constants.scaleSmall);
-        centerBig = GetPosition(bigModel.transform.position, Constants.scaleBig);
+        centerSmall = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
+        centerBig = Constants.GetPosition(bigModel.transform.position, Constants.scaleBig);
 
         newCylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         newCylinder.tag = "Small";
@@ -116,8 +110,8 @@ public class CreateCylinder : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            var radius = GetDistance(point1, (point2 == Vector3.zero) ? GetPosition(smallModel.transform.position, Constants.scaleSmall) : point2);
-            var height = (point2 != Vector3.zero) ? GetDistance(point2, GetPosition(smallModel.transform.position, Constants.scaleSmall)) : 0.0001f;
+            var radius = GetDistance(point1, (point2 == Vector3.zero) ? Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall) : point2);
+            var height = (point2 != Vector3.zero) ? GetDistance(point2, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall)) : 0.0001f;
 
             if (height != newCylinder.transform.localScale.y)
             {

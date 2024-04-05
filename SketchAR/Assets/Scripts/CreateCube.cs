@@ -47,12 +47,6 @@ public class CreateCube : MonoBehaviour
         }
     }
 
-    Vector3 GetPosition(Vector3 center, float scale)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        return center + ray.direction * scale;
-    }
-
     float GetRadius(Vector3 center, Vector3 endpioint)
     {
         Debug.Log("Radius of: " + center + " and " + endpioint + " = " + Vector3.Distance(center, endpioint));
@@ -68,8 +62,8 @@ public class CreateCube : MonoBehaviour
     {
         var objectIndex = Constants.newObject();
 
-        centerSmall = GetPosition(smallModel.transform.position, Constants.scaleSmall);
-        centerBig = GetPosition(bigModel.transform.position, Constants.scaleBig);
+        centerSmall = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
+        centerBig = Constants.GetPosition(bigModel.transform.position, Constants.scaleBig);
 
         newSphere = GameObject.CreatePrimitive(PrimitiveType.Cube);
         newSphere.name = objectIndex + "_Cube";
@@ -104,7 +98,7 @@ public class CreateCube : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            var radius = GetRadius(centerSmall, GetPosition(smallModel.transform.position, Constants.scaleSmall));
+            var radius = GetRadius(centerSmall, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall));
 
             newSphere.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
             newSphere.transform.localScale = new Vector3(radius, radius, radius);

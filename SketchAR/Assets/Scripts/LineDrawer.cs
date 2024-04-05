@@ -65,19 +65,6 @@ public class LineDrawer : MonoBehaviour
         }
     }
 
-    Vector3 GetMousePosition()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        return ray.origin + ray.direction * 10;
-    }
-
-    Vector3 GetPosition(Vector3 center, float scale)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.Log("Kamera: ---> "+Camera.main.name);
-        return center + ray.direction * scale;
-    }
-
     Color randomColor()
     {
         return Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
@@ -119,11 +106,11 @@ public class LineDrawer : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            linePoints.Add(GetPosition(smallModel.transform.position, Constants.scaleSmall));
+            linePoints.Add(Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall));
             drawLine.positionCount = linePoints.Count;
             drawLine.SetPositions(linePoints.ToArray());
 
-            linePointsBig.Add(GetPosition(bigModel.transform.position, Constants.scaleBig));
+            linePointsBig.Add(Constants.GetPosition(bigModel.transform.position, Constants.scaleBig));
             drawLineBig.positionCount = linePointsBig.Count;
             drawLineBig.SetPositions(linePointsBig.ToArray());
 

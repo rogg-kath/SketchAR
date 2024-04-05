@@ -15,6 +15,13 @@ public class Constants : MonoBehaviour
         Cylinder,
     }
 
+    public enum MenuState
+    {
+        None,
+        Forms,
+        Main,
+    }
+
     static public float timerDelay = 0.05f;
     static public string nameSmall = "SmallModel";
     static public string nameBig = "BigModel";
@@ -25,6 +32,8 @@ public class Constants : MonoBehaviour
     static public float scaleBig = 2f;
 
     static public Mode currentMode = Mode.None;
+    static public MenuState currentMenuState = MenuState.None;
+
     static float objectIndex = 0;
     static public List<string> namesSmallObjects;
     static public List<string> namesBigObjects;
@@ -69,6 +78,17 @@ public class Constants : MonoBehaviour
     {
         objectIndex = objectIndex + 1;
         return objectIndex;
+    }
+
+    static public Vector3 GetPosition(Vector3 center, float scale)
+    {
+        return GetPositionPC(center, scale);
+    }
+
+    static Vector3 GetPositionPC(Vector3 center, float scale)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        return center + ray.direction * scale;
     }
 
 }
