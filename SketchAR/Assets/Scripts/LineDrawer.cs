@@ -39,24 +39,29 @@ public class LineDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Constants.currentMode == Constants.Mode.Line)
         {
-            SetupLineRenderer();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Constants.isDrawing = true;
+                SetupLineRenderer();
+            }
 
-        if (Input.GetMouseButton(1))
-        {
-            Constants.scaleBig = bigModel.transform.localScale.x;
-            DrawContinous();
-        }
+            if (Input.GetMouseButton(0))
+            {
+                Constants.scaleBig = bigModel.transform.localScale.x;
+                DrawContinous();
+            }
 
-        if (Input.GetMouseButtonUp(1))
-        {
-            // Debug.Log(linePoints.Count);
-            newLine.transform.parent = smallModel.transform;
-            newLineBig.transform.parent = bigModel.transform;
-            linePoints.Clear();
-            linePointsBig.Clear();
+            if (Input.GetMouseButtonUp(0) && Constants.isDrawing)
+            {
+                Constants.isDrawing = false;
+                // Debug.Log(linePoints.Count);
+                newLine.transform.parent = smallModel.transform;
+                newLineBig.transform.parent = bigModel.transform;
+                linePoints.Clear();
+                linePointsBig.Clear();
+            }
         }
     }
 

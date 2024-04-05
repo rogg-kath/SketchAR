@@ -30,20 +30,27 @@ public class CreateSphere : MonoBehaviour
 
     void Update()
     {
-        Constants.scaleBig = bigModel.transform.localScale.x;
-        if (Input.GetMouseButtonDown(0)) {
-            // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            // sphere.transform.position = new Vector3(0, 1.5f, 0);
-            SetupRenderer();
-        }
+        if (Constants.currentMode == Constants.Mode.Sphere)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                // sphere.transform.position = new Vector3(0, 1.5f, 0);
+                Constants.isDrawing = true;
+                SetupRenderer();
+            }
 
-        if (Input.GetMouseButton(0)) {
-            DrawContinous();
-        }
+            if (Input.GetMouseButton(0))
+            {
+                DrawContinous();
+            }
 
-        if (Input.GetMouseButtonUp(0)) {
-            newSphere.transform.parent = smallModel.transform;
-            newSphereBig.transform.parent = bigModel.transform;
+            if (Input.GetMouseButtonUp(0) && Constants.isDrawing)
+            {
+                Constants.isDrawing = false;
+                newSphere.transform.parent = smallModel.transform;
+                newSphereBig.transform.parent = bigModel.transform;
+            }
         }
     }
 

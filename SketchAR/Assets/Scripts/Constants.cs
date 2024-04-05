@@ -12,11 +12,14 @@ public class Constants : MonoBehaviour
         Line,
         Sphere,
         Cube,
+        Cylinder,
     }
 
     static public float timerDelay = 0.05f;
     static public string nameSmall = "SmallModel";
     static public string nameBig = "BigModel";
+
+    static public bool isDrawing = false;
 
     static public float scaleSmall = 1f;
     static public float scaleBig = 2f;
