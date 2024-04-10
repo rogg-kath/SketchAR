@@ -125,10 +125,10 @@ public class CreateCylinder : MonoBehaviour
 
             if (height != newCylinder.transform.localScale.y)
             {
-                var newDistance = height * 1 / Constants.scaleSmall - newCylinder.transform.localScale.y * 1 / Constants.scaleSmall;
+                var newDistance = height - newCylinder.transform.localScale.y;
                 Debug.Log("new distance " + newDistance+" height: "+height+" cylinder height y: "+ newCylinder.transform.localScale.y);
-                newCylinder.transform.position = newCylinder.transform.position + new Vector3(0, newDistance * 0.5f, 0);
-                newCylinderBig.transform.position = newCylinderBig.transform.position + new Vector3(0, newDistance * Constants.actualScaleBig() * 0.5f, 0);
+                newCylinder.transform.position = newCylinder.transform.position + new Vector3(0, newDistance, 0);
+                newCylinderBig.transform.position = newCylinderBig.transform.position + new Vector3(0, newDistance * Constants.actualScaleBig(), 0);
             }
 
             newCylinder.GetComponent<CapsuleCollider>().radius = radius * 1 / Constants.scaleSmall;
