@@ -67,7 +67,7 @@ public class CreateSphere : MonoBehaviour
         var objectIndex = Constants.newObject();
 
         centerSmall = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
-        centerBig = Constants.GetPosition(bigModel.transform.position, Constants.scaleBig);
+        centerBig = Constants.GetPosition(Constants.rotationSmall * bigModel.transform.position, Constants.scaleBig);
 
         newSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         newSphere.name = objectIndex + "_Sphere";
@@ -106,8 +106,7 @@ public class CreateSphere : MonoBehaviour
             newSphere.transform.localScale = new Vector3(radius,radius,radius);
 
             newSphereBig.GetComponent<SphereCollider>().radius = radius * Constants.actualScaleBig();
-            Debug.Log("ScaleBig___ " + Constants.scaleBig + " ActualBig___ " + Constants.actualScaleBig());
-            newSphereBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(),radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
+            newSphereBig.transform.localScale = Constants.rotate_vector_by_quaternion(Constants.rotationSmall, new Vector3(radius * Constants.actualScaleBig(),radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig()));
 
             timer = timerDelay;
         }
