@@ -83,6 +83,16 @@ public class CreateCylinder : MonoBehaviour
         return Vector3.Distance(center, endpioint);
     }
 
+    //Sign only in y direction
+    float GetDistanceWithNegative(Vector3 center, Vector3 endpioint)
+    {
+        if (center.y > endpioint.y)
+        {
+            return -Vector3.Distance(center, endpioint);
+        }
+        return Vector3.Distance(center, endpioint);
+    }
+
     Color randomColor()
     {
         return Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
@@ -111,26 +121,27 @@ public class CreateCylinder : MonoBehaviour
         if (timer <= 0)
         {
             var radius = GetDistance(point1, (point2 == Vector3.zero) ? Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall) : point2);
-            var height = (point2 != Vector3.zero) ? GetDistance(point2, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall)) : 0.0001f;
+            var height = (point2 != Vector3.zero) ? GetDistanceWithNegative(point2, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall)) : 0.0001f;
 
             if (height != newCylinder.transform.localScale.y)
             {
-                var newDistance = height - newCylinder.transform.localScale.y;
-                newCylinder.transform.position = newCylinder.transform.position + new Vector3(0, newDistance * Constants.scaleSmall * 0.5f, 0);
+                var newDistance = height * 1 / Constants.scaleSmall - newCylinder.transform.localScale.y * 1 / Constants.scaleSmall;
+                Debug.Log("new distance " + newDistance+" height: "+height+" cylinder height y: "+ newCylinder.transform.localScale.y);
+                newCylinder.transform.position = newCylinder.transform.position + new Vector3(0, newDistance * 0.5f, 0);
                 newCylinderBig.transform.position = newCylinderBig.transform.position + new Vector3(0, newDistance * Constants.actualScaleBig() * 0.5f, 0);
             }
 
-            newCylinder.GetComponent<CapsuleCollider>().radius = radius;
-            newCylinder.GetComponent<CapsuleCollider>().height = height;
-            newCylinder.transform.localScale = new Vector3(radius * Constants.scaleSmall, height * Constants.scaleSmall, radius * Constants.scaleSmall);
+            newCylinder.GetComponent<CapsuleCollider>().radius = radius * 1 / Constants.scaleSmall;
+            newCylinder.GetComponent<CapsuleCollider>().height = height * 1 / Constants.scaleSmall;
+            newCylinder.transform.localScale = new Vector3(radius, height, radius);
                        
 
             // Debug.Log("Distance of: " + radius + " - Height of:  " + height);
             // Debug.Log("Point1: " + point1.ToString() + "/nPoint2:  " + point2.ToString() + "/nPoint3:  " + point3.ToString());
 
 
-            newCylinderBig.GetComponent<CapsuleCollider>().radius = radius * Constants.actualScaleBig();
-            newCylinderBig.GetComponent<CapsuleCollider>().height = height * Constants.actualScaleBig();
+            newCylinderBig.GetComponent<CapsuleCollider>().radius = radius * 1 / Constants.scaleSmall;
+            newCylinderBig.GetComponent<CapsuleCollider>().height = height * 1 / Constants.scaleSmall;
             newCylinderBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(), height * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
 
             timer = timerDelay;

@@ -99,11 +99,12 @@ public class CreateCube : MonoBehaviour
         if (timer <= 0)
         {
             var radius = GetRadius(centerSmall, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall));
+            var distance = radius * 1 / Constants.scaleSmall;
 
-            newSphere.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
+            newSphere.GetComponent<BoxCollider>().size = new Vector3(distance, distance, distance);
             newSphere.transform.localScale = new Vector3(radius, radius, radius);
 
-            newSphereBig.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
+            newSphereBig.GetComponent<BoxCollider>().size = new Vector3(distance, distance, distance);
             newSphereBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
 
             timer = timerDelay;

@@ -102,10 +102,10 @@ public class CreateSphere : MonoBehaviour
         if (timer <= 0) {
             var radius = GetRadius(centerSmall, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall));
             
-            newSphere.GetComponent<SphereCollider>().radius = radius;
+            newSphere.GetComponent<SphereCollider>().radius = radius * 1/Constants.scaleSmall;
             newSphere.transform.localScale = new Vector3(radius,radius,radius);
 
-            newSphereBig.GetComponent<SphereCollider>().radius = radius * Constants.actualScaleBig();
+            newSphereBig.GetComponent<SphereCollider>().radius = radius * 1 / Constants.scaleSmall; // use scaleSmall, as sphere and collider are jet not scaled -> next line
             newSphereBig.transform.localScale = Constants.rotate_vector_by_quaternion(Constants.rotationSmall, new Vector3(radius * Constants.actualScaleBig(),radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig()));
 
             timer = timerDelay;
