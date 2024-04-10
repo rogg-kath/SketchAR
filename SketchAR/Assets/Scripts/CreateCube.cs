@@ -10,8 +10,8 @@ public class CreateCube : MonoBehaviour
     GameObject smallModel;
     GameObject bigModel;
 
-    GameObject newSphere;
-    GameObject newSphereBig;
+    GameObject newCube;
+    GameObject newCubeBig;
 
 
     void Start()
@@ -41,8 +41,8 @@ public class CreateCube : MonoBehaviour
             if (Input.GetMouseButtonUp(0) && Constants.isDrawing) 
             {
                 Constants.isDrawing = false;
-                newSphere.transform.parent = smallModel.transform;
-                newSphereBig.transform.parent = bigModel.transform;
+                newCube.transform.parent = smallModel.transform;
+                newCubeBig.transform.parent = bigModel.transform;
             }
         }
     }
@@ -65,11 +65,11 @@ public class CreateCube : MonoBehaviour
         centerSmall = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
         centerBig = Constants.GetPosition(bigModel.transform.position, Constants.scaleBig);
 
-        newSphere = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        newSphere.name = objectIndex + "_Cube";
-        newSphere.tag = "Small";
-        newSphere.transform.position = centerSmall;
-        newSphere.transform.localScale = new Vector3(0, 0, 0);
+        newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        newCube.name = objectIndex + "_Cube";
+        newCube.tag = "Small";
+        newCube.transform.position = centerSmall;
+        newCube.transform.localScale = new Vector3(0, 0, 0);
         // radius = newSphere.GetComponent<SphereCollider>().radius;
 
         // var renderer = newSphere.GetComponent<Renderer>();
@@ -78,11 +78,11 @@ public class CreateCube : MonoBehaviour
         //     color = randomColor()
         // };
 
-        newSphereBig = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        newSphereBig.name = objectIndex + "_Cube";
-        newSphereBig.tag = "Big";
-        newSphereBig.transform.position = centerBig;
-        newSphereBig.transform.localScale = new Vector3(0, 0, 0);
+        newCubeBig = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        newCubeBig.name = objectIndex + "_Cube";
+        newCubeBig.tag = "Big";
+        newCubeBig.transform.position = centerBig;
+        newCubeBig.transform.localScale = new Vector3(0, 0, 0);
         // radius = newSphere.GetComponent<SphereCollider>().radius;
 
         // var rendererBig = newSphere.GetComponent<Renderer>();
@@ -100,11 +100,11 @@ public class CreateCube : MonoBehaviour
         {
             var radius = GetRadius(centerSmall, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall));
 
-            newSphere.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
-            newSphere.transform.localScale = new Vector3(radius, radius, radius);
+            newCube.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
+            newCube.transform.localScale = new Vector3(radius, radius, radius);
 
-            newSphereBig.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
-            newSphereBig.transform.localScale = new Vector3(radius * Constants.scaleBig, radius * Constants.scaleBig, radius * Constants.scaleBig);
+            newCubeBig.GetComponent<BoxCollider>().size = new Vector3(0.1f, 0.1f, 0.1f);//TODO set distance
+            newCubeBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
 
             timer = timerDelay;
         }

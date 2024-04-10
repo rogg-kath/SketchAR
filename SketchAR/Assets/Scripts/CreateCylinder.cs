@@ -52,6 +52,7 @@ public class CreateCylinder : MonoBehaviour
                     }
                     else
                     {
+                        // Bottom circle gets defined
                         point2 = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
                     }
                 }
@@ -70,7 +71,7 @@ public class CreateCylinder : MonoBehaviour
             }
 
             // if we started drwaing -> update
-            if ((point1 != Vector3.zero && point3 == Vector3.zero))
+            if (point1 != Vector3.zero && point3 == Vector3.zero)
             {
                 DrawContinous();
             }
@@ -91,7 +92,7 @@ public class CreateCylinder : MonoBehaviour
     void SetupRenderer()
     {
         centerSmall = Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall);
-        centerBig = Constants.GetPosition(bigModel.transform.position, Constants.scaleBig);
+        centerBig = Constants.GetPosition(bigModel.transform.position, Constants.actualScaleBig());
 
         newCylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         newCylinder.tag = "Small";
@@ -111,13 +112,15 @@ public class CreateCylinder : MonoBehaviour
         if (timer <= 0)
         {
             var radius = GetDistance(point1, (point2 == Vector3.zero) ? Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall) : point2);
-            var height = (point2 != Vector3.zero) ? GetDistance(point2, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall)) : 0.0001f;
+            var height = (point2 != Vector3.zero) ? GetDistance(point2, Constants.GetPosition(smallModel.transform.position, Constants.scaleSmall)) : 0f;
 
-            if (height != newCylinder.transform.localScale.y)
+            Debug.Log("Radius: " + radius + " - Height:  " + height + "\n ScaleSmall: "+Constants.scaleSmall+ " Actual ScaleBig:"+ Constants.actualScaleBig());
+            if (height != (newCylinder.transform.localScale.y * Constants.scaleSmall))
             {
-                var newDistance = height - newCylinder.transform.localScale.y;
+                Debug.Log("UMGESETZT!!!!!!");
+                var newDistance = height - (newCylinder.transform.localScale.y * Constants.scaleSmall);
                 newCylinder.transform.position = newCylinder.transform.position + new Vector3(0, newDistance * Constants.scaleSmall * 0.5f, 0);
-                newCylinderBig.transform.position = newCylinderBig.transform.position + new Vector3(0, newDistance * Constants.scaleBig * 0.5f, 0);
+                newCylinderBig.transform.position = newCylinderBig.transform.position + new Vector3(0, newDistance * Constants.actualScaleBig() * 0.5f, 0);
             }
 
             newCylinder.GetComponent<CapsuleCollider>().radius = radius;
@@ -129,9 +132,9 @@ public class CreateCylinder : MonoBehaviour
             // Debug.Log("Point1: " + point1.ToString() + "/nPoint2:  " + point2.ToString() + "/nPoint3:  " + point3.ToString());
 
 
-            newCylinderBig.GetComponent<CapsuleCollider>().radius = radius * Constants.scaleBig;
-            newCylinderBig.GetComponent<CapsuleCollider>().height = height * Constants.scaleBig;
-            newCylinderBig.transform.localScale = new Vector3(radius * Constants.scaleBig, height * Constants.scaleBig, radius * Constants.scaleBig);
+            newCylinderBig.GetComponent<CapsuleCollider>().radius = radius * Constants.actualScaleBig();
+            newCylinderBig.GetComponent<CapsuleCollider>().height = height * Constants.actualScaleBig();
+            newCylinderBig.transform.localScale = new Vector3(radius * Constants.actualScaleBig(), height * Constants.actualScaleBig(), radius * Constants.actualScaleBig());
 
             timer = timerDelay;
         }

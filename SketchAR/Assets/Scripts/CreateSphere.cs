@@ -55,7 +55,7 @@ public class CreateSphere : MonoBehaviour
     }
 
     float GetRadius(Vector3 center, Vector3 endpioint) {
-        Debug.Log("Radius of: " + center + " and " + endpioint + " = " + Vector3.Distance(center, endpioint));
+        // Debug.Log("Radius of: " + center + " and " + endpioint + " = " + Vector3.Distance(center, endpioint));
         return Vector3.Distance(center, endpioint);
     }
 
@@ -105,8 +105,11 @@ public class CreateSphere : MonoBehaviour
             newSphere.GetComponent<SphereCollider>().radius = radius;
             newSphere.transform.localScale = new Vector3(radius,radius,radius);
 
-            newSphereBig.GetComponent<SphereCollider>().radius = radius * Constants.scaleBig;
-            newSphereBig.transform.localScale = new Vector3(radius * Constants.scaleBig,radius * Constants.scaleBig,radius * Constants.scaleBig);
+            newSphereBig.GetComponent<SphereCollider>().radius = radius * Constants.actualScaleBig();
+            Debug.Log("ScaleSmall: "+Constants.scaleSmall+" Actual: "+ Constants.actualScaleSmall()+" ---> Radius: " + radius +" "+ radius * Constants.actualScaleSmall());
+            Debug.Log("ScaleBig: "+Constants.scaleBig+" Actual: "+ Constants.actualScaleBig()+" factor: "+ Constants.factorScaleBig()+" ---> Radius: " + radius * Constants.actualScaleBig() +" "+ radius * Constants.scaleBig +" "+ radius * Constants.factorScaleBig());
+            // Debug.Log("Radius: "+radius);
+            newSphereBig.transform.localScale = new Vector3(radius*Constants.factorScaleBig(),radius*Constants.factorScaleBig(),radius*Constants.factorScaleBig());
 
             timer = timerDelay;
         }

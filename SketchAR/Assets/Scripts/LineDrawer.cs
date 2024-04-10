@@ -49,7 +49,6 @@ public class LineDrawer : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                Constants.scaleBig = bigModel.transform.localScale.x;
                 DrawContinous();
             }
 
@@ -84,8 +83,8 @@ public class LineDrawer : MonoBehaviour
         drawLine.material = new Material(Shader.Find("Sprites/Default"));
         drawLine.startColor = color;
         drawLine.endColor = drawLine.startColor;
-        drawLine.startWidth = lineWidth * (1 / Constants.scaleBig);
-        drawLine.endWidth = lineWidth * (1 / Constants.scaleBig);
+        drawLine.startWidth = lineWidth * (1 / Constants.actualScaleBig());
+        drawLine.endWidth = lineWidth * (1 / Constants.actualScaleBig());
 
         newLineBig = new GameObject(objectIndex+"_LineBig")
         {
@@ -110,7 +109,7 @@ public class LineDrawer : MonoBehaviour
             drawLine.positionCount = linePoints.Count;
             drawLine.SetPositions(linePoints.ToArray());
 
-            linePointsBig.Add(Constants.GetPosition(bigModel.transform.position, Constants.scaleBig));
+            linePointsBig.Add(Constants.GetPosition(bigModel.transform.position, Constants.actualScaleBig()));
             drawLineBig.positionCount = linePointsBig.Count;
             drawLineBig.SetPositions(linePointsBig.ToArray());
 
